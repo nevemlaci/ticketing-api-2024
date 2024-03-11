@@ -9,7 +9,8 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  @Get('/hello/:name')
+
+  @Get('hello/:name')
   getPersonalizedHello(@Param('name') name: string, @Query('day') day: string) {
     return this.appService.getPersonalizedHello(name, day);
   }

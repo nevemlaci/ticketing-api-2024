@@ -7,12 +7,10 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:postgres@localhost:5432/ticketing?schema=public" //env("DATABASE_URL")
+  url      = "postgresql://postgres:postgres@localhost:5432/ticketing?schema=public"
 }
-
 enum TicketPhase {
   CREATED
   IN_PROGRESS
@@ -21,17 +19,17 @@ enum TicketPhase {
 }
 
 model Ticket {
-  id        Int         @id @default(autoincrement())
-  name      String
-  phase     TicketPhase @default(CREATED)
-  createdAt DateTime    @default(now())
-  boardId   Int
-  board     Board       @relation(fields: [boardId], references: [id], onDelete: Cascade)
-}
-
-model Board {
-  id        Int      @id @default(autoincrement())
-  title     String
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  phase       TicketPhase @default(CREATED)
+  boardId     Int
+  board       Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
-  tickets    Ticket[]
+}
+model Board {
+  id      Int      @id @default(autoincrement())
+  title    String
+  tickets Ticket[]
+  createdAt DateTime @default(now())
 }
